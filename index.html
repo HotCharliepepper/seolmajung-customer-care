@@ -1405,15 +1405,13 @@
 
 
   
+  
   <script>
     const APP = {
       storagePrefix: "seolmajung_recovery_james_",
       syncTimer: null,
       lastSyncReason: "manual",
-      hasServerConnection:
-        typeof google !== "undefined" &&
-        google.script &&
-        google.script.run
+      saveEndpoint: "/api/recovery-save"
     };
 
     function setStatus(text, state){
@@ -1435,6 +1433,7 @@
       const boxes = Array.from(document.querySelectorAll('input[type="checkbox"][data-key]'));
       const complete = boxes.filter(function(box){ return box.checked; }).length;
       const percent = Math.round((complete / boxes.length) * 100);
+
       document.getElementById("progressBar").style.width = percent + "%";
       document.getElementById("progressText").textContent =
         complete + " / " + boxes.length + " 완료 · " + percent + "%";
@@ -1498,45 +1497,64 @@
 
       clearTimeout(APP.syncTimer);
       APP.lastSyncReason = reason || "autosave";
+
       APP.syncTimer = setTimeout(function(){
         syncRecord(APP.lastSyncReason, false);
-      }, 1200);
+      }, 1400);
     }
 
-    function syncRecord(reason, manual){
+    async function syncRecord(reason, manual){
       const payload = collectPayload(reason);
-
-      if(!APP.hasServerConnection){
-        setStatus("이 기기에 임시 저장됨", "");
-        return;
-      }
+      const controller = new AbortController();
+      const timeoutId = setTimeout(function(){
+        controller.abort();
+      }, 18000);
 
       setStatus("저장 중…", "saving");
 
-      google.script.run
-        .withSuccessHandler(function(result){
-          if(result && result.ok){
-            const time = new Date().toLocaleTimeString("ko-KR", {
-              hour: "2-digit",
-              minute: "2-digit"
-            });
+      try{
+        const response = await fetch(APP.saveEndpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload),
+          signal: controller.signal
+        });
 
-            setStatus("저장 완료 · " + time, "saved");
+        const result = await response.json().catch(function(){
+          return { ok: false, error: "INVALID_RESPONSE" };
+        });
 
-            if(manual){
-              const btn = document.getElementById("syncNow");
-              const old = btn.textContent;
-              btn.textContent = "저장 완료";
-              setTimeout(function(){ btn.textContent = old; }, 1300);
-            }
-          }else{
-            setStatus("저장 확인 필요", "error");
-          }
-        })
-        .withFailureHandler(function(){
-          setStatus("저장 확인 필요", "error");
-        })
-        .saveRecoveryRecord(payload);
+        if(!response.ok || !result.ok){
+          throw new Error(result.error || "SAVE_FAILED");
+        }
+
+        const time = new Date().toLocaleTimeString("ko-KR", {
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+
+        setStatus("저장 완료 · " + time, "saved");
+
+        if(manual){
+          const btn = document.getElementById("syncNow");
+          const old = btn.textContent;
+          btn.textContent = "저장 완료";
+          setTimeout(function(){ btn.textContent = old; }, 1300);
+        }
+      }catch(error){
+        console.error("Recovery save failed:", error);
+        setStatus("저장 확인 필요", "error");
+
+        const note = document.getElementById("simpleSaveNote");
+        if(note){
+          note.textContent =
+            "입력 내용은 이 기기에 남아 있습니다. 잠시 뒤 ‘저장하기’를 다시 눌러주세요.";
+        }
+      }finally{
+        clearTimeout(timeoutId);
+      }
     }
 
     document.querySelectorAll(".copy").forEach(function(btn){
@@ -1561,6 +1579,7 @@
 
     restoreLocal();
     updateProgress();
+    setStatus("입력 대기", "");
 
     document.querySelectorAll('input[type="checkbox"][data-key]').forEach(function(box){
       box.addEventListener("change", function(){
@@ -1584,18 +1603,8 @@
       updateProgress();
       syncRecord("manual_save", true);
     });
-
-    if(APP.hasServerConnection){
-      setStatus("입력 대기", "");
-    }else{
-      setStatus("이 기기에 임시 저장", "");
-      const note = document.getElementById("simpleSaveNote");
-      if(note){
-        note.textContent =
-          "현재 입력 내용은 이 기기에 임시 저장됩니다. 정식 링크에서 열면 운영 기록에도 함께 저장됩니다.";
-      }
-    }
   </script>
+
 
 
 </body>
