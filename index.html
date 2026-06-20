@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>설마중 고객 신뢰 회복 타임라인 | James 실행안</title>
+  <meta name="description" content="울산대표 고객 응대 사건 이후 James가 누구에게, 어떤 순서로, 어떤 방식으로 연락해야 하는지 정리한 실행용 문서" />
+  <style>
+    :root{
+      --ink:#1d1b18;
+      --muted:#6d675f;
+      --line:#ddd5c8;
+      --paper:#f7f3eb;
+      --card:#fffdf8;
+      --deep:#30271f;
+      --deep2:#4a3a2c;
+      --brass:#a57a3e;
+      --brass-soft:#efe3cf;
+      --green:#486254;
+      --green-soft:#e6eee8;
+      --red:#8f4b43;
+      --red-soft:#f4e6e4;
+      --blue:#425b73;
+      --blue-soft:#e8eef4;
+      --shadow:0 18px 48px rgba(40,29,18,.08);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(165,122,62,.10), transparent 30%),
+        linear-gradient(180deg,#eee8dc 0%,var(--paper) 260px);
+      font-family:"Pretendard Variable","Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+      line-height:1.68;
+      letter-spacing:-.02em;
+    }
+
+    a{color:inherit}
+    button{font:inherit}
+
+    .page{
+      width:min(1120px,calc(100% - 32px));
+      margin:0 auto;
+      padding:28px 0 72px;
+    }
+
+    .hero{
+      position:relative;
+      overflow:hidden;
+      color:#fffaf1;
+      background:
+        linear-gradient(135deg,rgba(255,255,255,.03),rgba(255,255,255,0)),
+        var(--deep);
+      border-radius:28px;
+      padding:42px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero:after{
+      content:"";
+      position:absolute;
+      right:-90px;
+      top:-80px;
+      width:290px;
+      height:290px;
+      border:1px solid rgba(215,184,139,.22);
+      border-radius:50%;
+      box-shadow:0 0 0 34px rgba(215,184,139,.06),0 0 0 70px rgba(215,184,139,.03);
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      margin-bottom:17px;
+      color:#d9c2a0;
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.09em;
+      text-transform:uppercase;
+    }
+
+    .eyebrow:before{
+      content:"";
+      width:34px;
+      height:1px;
+      background:#d9c2a0;
+    }
+
+    h1{
+      position:relative;
+      z-index:1;
+      margin:0;
+      font-size:clamp(34px,5vw,62px);
+      line-height:1.12;
+      letter-spacing:-.055em;
+    }
+
+    .hero p{
+      position:relative;
+      z-index:1;
+      max-width:760px;
+      margin:20px 0 0;
+      color:#e6ddd1;
+      font-size:17px;
+    }
+
+    .hero-grid{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:30px;
+    }
+
+    .hero-stat{
+      min-height:112px;
+      padding:17px;
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:17px;
+      background:rgba(255,255,255,.045);
+      backdrop-filter:blur(8px);
+    }
+
+    .hero-stat small{
+      display:block;
+      color:#c9b79f;
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .hero-stat strong{
+      display:block;
+      margin-top:8px;
+      color:#fff;
+      font-size:18px;
+      line-height:1.35;
+    }
+
+    .nav{
+      position:sticky;
+      top:10px;
+      z-index:20;
+      display:flex;
+      gap:8px;
+      overflow:auto;
+      margin:18px 0 0;
+      padding:9px;
+      border:1px solid rgba(100,82,62,.12);
+      border-radius:18px;
+      background:rgba(255,253,248,.88);
+      backdrop-filter:blur(14px);
+      box-shadow:0 12px 36px rgba(55,42,28,.07);
+      scrollbar-width:none;
+    }
+
+    .nav::-webkit-scrollbar{display:none}
+    .nav a{
+      flex:0 0 auto;
+      padding:10px 14px;
+      color:#5e554a;
+      border-radius:12px;
+      text-decoration:none;
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .nav a:hover{background:#eee6d9;color:#2f271f}
+
+    .section{
+      margin-top:22px;
+      padding:30px;
+      border:1px solid rgba(120,101,78,.16);
+      border-radius:24px;
+      background:rgba(255,253,248,.94);
+      box-shadow:0 12px 32px rgba(55,42,28,.045);
+    }
+
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:24px;
+      margin-bottom:22px;
+    }
+
+    .kicker{
+      margin:0 0 7px;
+      color:var(--brass);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    h2{
+      margin:0;
+      font-size:clamp(25px,3vw,36px);
+      line-height:1.2;
+      letter-spacing:-.045em;
+    }
+
+    .section-desc{
+      max-width:560px;
+      margin:9px 0 0;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    .principle{
+      display:grid;
+      grid-template-columns:110px 1fr;
+      gap:18px;
+      align-items:center;
+      padding:18px;
+      border-radius:17px;
+      background:var(--brass-soft);
+    }
+
+    .principle .label{
+      color:#7c592b;
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .principle strong{
+      font-size:19px;
+      line-height:1.45;
+    }
+
+    .facts{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .fact{
+      padding:17px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fff;
+    }
+
+    .fact small{
+      display:block;
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .fact strong{
+      display:block;
+      margin-top:6px;
+      font-size:16px;
+      line-height:1.45;
+    }
+
+    .warning{
+      display:flex;
+      gap:12px;
+      margin-top:14px;
+      padding:16px 18px;
+      border-left:4px solid var(--red);
+      border-radius:12px;
+      background:var(--red-soft);
+      color:#5f3834;
+      font-size:14px;
+    }
+
+    .warning b{white-space:nowrap}
+
+    .timeline{
+      position:relative;
+      margin-top:12px;
+    }
+
+    .timeline:before{
+      content:"";
+      position:absolute;
+      left:31px;
+      top:23px;
+      bottom:23px;
+      width:1px;
+      background:linear-gradient(var(--brass),var(--line));
+    }
+
+    .step{
+      position:relative;
+      display:grid;
+      grid-template-columns:64px 1fr;
+      gap:18px;
+      margin:0 0 16px;
+    }
+
+    .step:last-child{margin-bottom:0}
+
+    .marker{
+      position:relative;
+      z-index:2;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:64px;
+      height:64px;
+      border:6px solid var(--card);
+      border-radius:50%;
+      background:var(--deep);
+      color:#fff;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:0 0 0 1px var(--line);
+    }
+
+    .step-card{
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:19px;
+      background:#fff;
+    }
+
+    .step-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:18px;
+      padding:19px 20px;
+      border-bottom:1px solid #ece6dc;
+      background:#fffdf9;
+    }
+
+    .step-time{
+      color:var(--brass);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .step-title{
+      margin:3px 0 0;
+      font-size:21px;
+      line-height:1.25;
+      letter-spacing:-.035em;
+    }
+
+    .badges{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      gap:6px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      min-height:29px;
+      padding:5px 9px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:850;
+      white-space:nowrap;
+    }
+
+    .badge.call{color:#294d39;background:var(--green-soft)}
+    .badge.text{color:#35516c;background:var(--blue-soft)}
+    .badge.internal{color:#74413c;background:var(--red-soft)}
+    .badge.hold{color:#6c512e;background:var(--brass-soft)}
+
+    .step-body{padding:20px}
+    .step-body p{margin:0 0 12px}
+    .step-body ul{
+      margin:0;
+      padding-left:20px;
+    }
+    .step-body li+li{margin-top:6px}
+
+    .who{
+      display:grid;
+      grid-template-columns:90px 1fr;
+      gap:10px;
+      margin:0 0 14px;
+      padding:13px 15px;
+      border-radius:13px;
+      background:#f6f2ea;
+      font-size:14px;
+    }
+
+    .who b{color:#6c5b47}
+
+    details{
+      margin-top:14px;
+      border:1px solid #e4dccf;
+      border-radius:14px;
+      background:#fbf8f2;
+    }
+
+    summary{
+      cursor:pointer;
+      list-style:none;
+      padding:14px 16px;
+      font-weight:850;
+    }
+
+    summary::-webkit-details-marker{display:none}
+    summary:after{
+      content:"+";
+      float:right;
+      color:var(--brass);
+      font-size:20px;
+      line-height:1;
+    }
+    details[open] summary:after{content:"−"}
+
+    .script-wrap{
+      padding:0 14px 14px;
+    }
+
+    .script{
+      white-space:pre-wrap;
+      padding:16px;
+      border:1px solid #ddd4c7;
+      border-radius:12px;
+      background:#fff;
+      color:#2a2722;
+      font-size:15px;
+      line-height:1.75;
+    }
+
+    .copy{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      margin-top:10px;
+      padding:9px 12px;
+      border:1px solid #cfc4b5;
+      border-radius:10px;
+      background:#fff;
+      color:#4e4438;
+      cursor:pointer;
+      font-weight:800;
+    }
+
+    .copy:hover{background:#f3ede4}
+
+    .matrix{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+    }
+
+    .matrix-card{
+      padding:19px;
+      border:1px solid var(--line);
+      border-radius:17px;
+      background:#fff;
+    }
+
+    .matrix-card h3{
+      margin:0 0 12px;
+      font-size:19px;
+    }
+
+    .matrix-card ul{
+      margin:0;
+      padding-left:20px;
+    }
+
+    .matrix-card li+li{margin-top:7px}
+
+    .good{border-top:4px solid var(--green)}
+    .avoid{border-top:4px solid var(--red)}
+
+    .decision{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fff;
+    }
+
+    .decision th,.decision td{
+      padding:15px 16px;
+      border-bottom:1px solid #ece6dc;
+      vertical-align:top;
+      text-align:left;
+      font-size:14px;
+    }
+
+    .decision th{
+      color:#655a4d;
+      background:#f5f0e8;
+      font-size:13px;
+    }
+
+    .decision tr:last-child td{border-bottom:0}
+
+    .checklist{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+    }
+
+    .check{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius:13px;
+      background:#fff;
+    }
+
+    .check input{
+      margin-top:5px;
+      width:18px;
+      height:18px;
+      accent-color:var(--brass);
+    }
+
+    .check span{
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .footer{
+      margin-top:20px;
+      padding:22px;
+      color:#ddd1c1;
+      border-radius:18px;
+      background:var(--deep);
+      text-align:center;
+      font-size:13px;
+    }
+
+    .footer strong{color:#fff}
+
+    @media (max-width:820px){
+      .hero{padding:30px 24px}
+      .hero-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .facts{grid-template-columns:1fr 1fr}
+      .section{padding:24px 20px}
+      .section-head{display:block}
+      .matrix,.checklist{grid-template-columns:1fr}
+      .decision{display:block;overflow-x:auto}
+    }
+
+    @media (max-width:560px){
+      .page{width:min(100% - 20px,1120px);padding-top:10px}
+      .hero{border-radius:20px;padding:25px 20px}
+      .hero-grid{grid-template-columns:1fr 1fr}
+      .hero-stat{min-height:98px;padding:13px}
+      .section{border-radius:19px;padding:21px 16px}
+      .facts{grid-template-columns:1fr}
+      .principle{grid-template-columns:1fr;gap:5px}
+      .timeline:before{left:21px}
+      .step{grid-template-columns:44px 1fr;gap:10px}
+      .marker{width:44px;height:44px;border-width:4px;font-size:11px}
+      .step-top{display:block;padding:16px}
+      .badges{justify-content:flex-start;margin-top:10px}
+      .step-body{padding:16px}
+      .who{grid-template-columns:1fr;gap:2px}
+      .nav{top:6px}
+    }
+
+
+    .sync-card{
+      margin-top:14px;
+      padding:18px;
+      border:1px solid var(--line);
+      border-radius:17px;
+      background:#fff;
+    }
+
+    .sync-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      margin-bottom:14px;
+    }
+
+    .sync-head h3{
+      margin:0;
+      font-size:18px;
+    }
+
+    .sync-status{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      min-height:31px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#eee9e0;
+      color:#62584d;
+      font-size:12px;
+      font-weight:850;
+    }
+
+    .sync-status:before{
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:#958a7c;
+    }
+
+    .sync-status.saving{background:var(--brass-soft);color:#765527}
+    .sync-status.saving:before{background:var(--brass)}
+    .sync-status.saved{background:var(--green-soft);color:#31523d}
+    .sync-status.saved:before{background:var(--green)}
+    .sync-status.error{background:var(--red-soft);color:#723f39}
+    .sync-status.error:before{background:var(--red)}
+
+    .progress-shell{
+      overflow:hidden;
+      height:11px;
+      margin:13px 0 7px;
+      border-radius:999px;
+      background:#e8e1d6;
+    }
+
+    .progress-bar{
+      width:0%;
+      height:100%;
+      border-radius:inherit;
+      background:linear-gradient(90deg,var(--brass),#c5a16c);
+      transition:width .25s ease;
+    }
+
+    .progress-text{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:750;
+    }
+
+    .record-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:13px;
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+    }
+
+    .field.full{grid-column:1/-1}
+
+    .field label{
+      color:#61574c;
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .field input,
+    .field select,
+    .field textarea{
+      width:100%;
+      border:1px solid #d9d0c3;
+      border-radius:12px;
+      outline:none;
+      background:#fffdf9;
+      color:var(--ink);
+      padding:12px 13px;
+      font:inherit;
+      font-size:14px;
+      line-height:1.55;
+      transition:border-color .15s ease, box-shadow .15s ease;
+    }
+
+    .field textarea{
+      min-height:106px;
+      resize:vertical;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus{
+      border-color:#b18a56;
+      box-shadow:0 0 0 3px rgba(177,138,86,.12);
+    }
+
+    .field small{
+      color:#81786e;
+      font-size:12px;
+    }
+
+    .record-title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin:25px 0 12px;
+      padding-top:21px;
+      border-top:1px solid #e8e1d7;
+    }
+
+    .record-title h3{
+      margin:0;
+      font-size:20px;
+    }
+
+    .record-title span{
+      color:var(--muted);
+      font-size:12px;
+      font-weight:750;
+    }
+
+    .button-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:9px;
+      margin-top:14px;
+    }
+
+    .action-btn{
+      appearance:none;
+      border:1px solid #cfc3b4;
+      border-radius:11px;
+      background:#fff;
+      color:#4c4237;
+      padding:10px 13px;
+      cursor:pointer;
+      font-weight:850;
+    }
+
+    .action-btn.primary{
+      border-color:var(--deep);
+      background:var(--deep);
+      color:#fff;
+    }
+
+    .action-btn:hover{transform:translateY(-1px)}
+
+    .integration-note{
+      margin:12px 0 0;
+      padding:12px 14px;
+      border-radius:12px;
+      background:#f4efe7;
+      color:#655b50;
+      font-size:12px;
+    }
+
+    .mode-note{
+      margin-bottom:14px;
+      padding:13px 15px;
+      border-left:4px solid var(--green);
+      border-radius:11px;
+      background:var(--green-soft);
+      color:#355141;
+      font-size:13px;
+    }
+
+    @media (max-width:560px){
+      .sync-head{align-items:flex-start;flex-direction:column}
+      .record-grid{grid-template-columns:1fr}
+      .field.full{grid-column:auto}
+      .record-title{align-items:flex-start;flex-direction:column}
+    }
+
+    @media print{
+      body{background:#fff}
+      .page{width:100%;padding:0}
+      .hero,.section,.footer{box-shadow:none}
+      .nav,.copy{display:none!important}
+      .section{break-inside:avoid}
+      details{break-inside:avoid}
+      details > *{display:block!important}
+      .script-wrap{display:block!important}
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="eyebrow">Seolmajung Customer Recovery</div>
+      <h1>James 실행용<br>고객 신뢰 회복 타임라인</h1>
+      <p>
+        이번 사건의 목표는 단순한 사과가 아닙니다.
+        울산대표가 “내가 사람들을 잘못 데려온 것이 아니었다”고 다시 느끼게 만드는 것이 핵심입니다.
+      </p>
+
+      <div class="hero-grid">
+        <div class="hero-stat">
+          <small>우선 연락 대상</small>
+          <strong>울산대표</strong>
+        </div>
+        <div class="hero-stat">
+          <small>첫 연락 방식</small>
+          <strong>문자보다 전화</strong>
+        </div>
+        <div class="hero-stat">
+          <small>내부 선행 조치</small>
+          <strong>허 지배인 사실 확인</strong>
+        </div>
+        <div class="hero-stat">
+          <small>회복의 기준</small>
+          <strong>체면 · 신뢰 · 재초대</strong>
+        </div>
+      </div>
+    </header>
+
+    <nav class="nav" aria-label="문서 내 이동">
+      <a href="#summary">상황 요약</a>
+      <a href="#timeline">타임라인</a>
+      <a href="#messages">연락 기준</a>
+      <a href="#visit">재방문</a>
+      <a href="#check">체크리스트</a>
+    </nav>
+
+    <section class="section" id="summary">
+      <div class="section-head">
+        <div>
+          <p class="kicker">01 / Situation</p>
+          <h2>현재 확인된 상황</h2>
+          <p class="section-desc">
+            확정 사실과 아직 확인되지 않은 부분을 분리해야, 고객에게 과장된 사과나 직원 탓을 하지 않을 수 있습니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="principle">
+        <div class="label">회복 문장</div>
+        <strong>“사람들을 모시고 오신 자리에서 충분한 설명 없이 밖에서 기다리라는 느낌을 드렸고, 그 과정에서 대표님의 체면을 상하게 해드렸습니다.”</strong>
+      </div>
+
+      <div class="facts">
+        <div class="fact">
+          <small>예약 / 도착</small>
+          <strong>11:30 예약<br>10:40경 도착</strong>
+        </div>
+        <div class="fact">
+          <small>방문 인원</small>
+          <strong>약 3–4인</strong>
+        </div>
+        <div class="fact">
+          <small>고객 요청</small>
+          <strong>룸에서 맥주를 주문하며 대기</strong>
+        </div>
+        <div class="fact">
+          <small>현장 결과</small>
+          <strong>차에서 기다리라는 안내 후 전원 퇴장</strong>
+        </div>
+        <div class="fact">
+          <small>가장 큰 손실</small>
+          <strong>객단가보다 오래된 소개 신뢰</strong>
+        </div>
+        <div class="fact">
+          <small>우선 사과 대상</small>
+          <strong>일행을 모시고 온 울산대표</strong>
+        </div>
+      </div>
+
+      <div class="warning">
+        <b>확인 전제</b>
+        <span>허 지배인의 실제 표현과 당시 판단 이유는 아직 독립적으로 확인되지 않았습니다. 고객에게는 경험을 사과하되, 사실 확인 전 특정 직원을 단정적으로 비난하지 않습니다.</span>
+      </div>
+    </section>
+
+    <section class="section" id="timeline">
+      <div class="section-head">
+        <div>
+          <p class="kicker">02 / Timeline</p>
+          <h2>누구에게, 언제, 어떻게 연락할 것인가</h2>
+          <p class="section-desc">
+            연락 순서가 바뀌면 소개자의 체면이 더 흔들릴 수 있습니다. 울산대표를 중심에 두고 진행합니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline">
+
+        <article class="step">
+          <div class="marker">STEP 0</div>
+          <div class="step-card">
+            <div class="step-top">
+              <div>
+                <div class="step-time">즉시 · 20~30분</div>
+                <h3 class="step-title">허 지배인과 비공개 사실 확인</h3>
+              </div>
+              <div class="badges">
+                <span class="badge internal">내부 면담</span>
+                <span class="badge hold">추가 공개 질책 금지</span>
+              </div>
+            </div>
+            <div class="step-body">
+              <div class="who">
+                <b>James →</b>
+                <span>허 지배인</span>
+              </div>
+              <p><strong>목적:</strong> 누가 옳은지 따지기보다 당시 장면을 시간 순서대로 복원합니다.</p>
+              <ul>
+                <li>고객은 어떤 요청을 했는가</li>
+                <li>허 지배인은 정확히 어떤 말을 했는가</li>
+                <li>룸과 직원 준비 상태는 어땠는가</li>
+                <li>다른 대안을 검토하거나 상급자에게 확인했는가</li>
+                <li>고객이 퇴장할 때 어떤 반응을 보였는가</li>
+              </ul>
+
+              <details>
+                <summary>면담 시작 문장</summary>
+                <div class="script-wrap">
+                  <div class="script" id="script-0">오늘 상황을 누구의 말이 맞는지 따지기 전에, 실제로 어떤 장면이었는지 시간 순서대로 확인하려고 합니다.
+
+고객이 몇 시에 도착했고 어떤 요청을 했으며, 지배인님은 어떤 판단으로 어떤 말을 했는지 기억나는 그대로 말씀해주세요.
+
+지금은 변명이나 사과를 먼저 요구하는 자리가 아니라, 매장에서 어떤 판단 기준이 부족했는지 확인하는 자리입니다.</div>
+                  <button class="copy" data-copy="script-0">문장 복사</button>
+                </div>
+              </details>
+            </div>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="marker">STEP 1</div>
+          <div class="step-card">
+            <div class="step-top">
+              <div>
+                <div class="step-time">사실 확인 직후 · 오늘 가장 먼저</div>
+                <h3 class="step-title">울산대표에게 James가 직접 전화</h3>
+              </div>
+              <div class="badges">
+                <span class="badge call">전화 필수</span>
+                <span class="badge hold">직원 탓 금지</span>
+              </div>
+            </div>
+            <div class="step-body">
+              <div class="who">
+                <b>James →</b>
+                <span>울산대표</span>
+              </div>
+              <p><strong>왜 전화인가:</strong> 이번 일은 규정 안내가 아니라 체면과 관계가 상한 문제이므로, 문자만 보내면 가볍게 처리하는 인상을 줄 수 있습니다.</p>
+              <p><strong>통화 길이:</strong> 3~5분. 설명보다 사과가 길어야 합니다.</p>
+
+              <details open>
+                <summary>권장 통화 스크립트</summary>
+                <div class="script-wrap">
+                  <div class="script" id="script-1">대표님, 아까 통화를 마치고 다시 생각해보니 제가 꼭 한 번 더 말씀드려야 할 것 같아 연락드렸습니다.
+
+오늘 일은 단순히 오픈 전에 오셔서 기다리시게 된 문제가 아니었습니다.
+
+대표님께서 좋은 분들을 직접 모시고 오셨는데, 충분한 설명이나 다른 대안을 드리지 못하고 밖에서 기다리셔야 한다는 느낌을 드렸습니다. 그 과정에서 대표님의 체면까지 상하게 해드린 점을 제가 무겁게 보고 있습니다.
+
+매장 준비나 오픈 시간은 저희 내부 사정이지, 고객님들께 그렇게 느끼게 해드려도 되는 이유는 아니었습니다.
+
+오늘 현장에서 어떤 대화가 오갔는지는 정확히 확인하고 있고, 오픈 전에 일찍 도착하신 고객을 어떻게 모셔야 하는지도 매장 기준으로 다시 정리하겠습니다.
+
+함께 오셨던 분들께도 제가 직접 사과드리는 것이 좋을지, 아니면 대표님을 통해 먼저 마음을 전하는 것이 좋을지 여쭙고 싶습니다.
+
+괜찮으시다면 오늘 함께 오셨던 분들을 제가 다시 정식으로 모시고 싶습니다. 편하신 일정을 주시면 이번 자리는 제가 직접 준비하고 맞이하겠습니다.
+
+다시 한번 귀한 분들을 모시고 와주셨는데 이런 일을 겪게 해드려 정말 죄송합니다.</div>
+                  <button class="copy" data-copy="script-1">통화문 복사</button>
+                </div>
+              </details>
+            </div>
+          </div>
+        </article>
+
+        <article class="step" id="messages">
+          <div class="marker">STEP 2</div>
+          <div class="step-card">
+            <div class="step-top">
+              <div>
+                <div class="step-time">통화 종료 후 · 5~10분 이내</div>
+                <h3 class="step-title">울산대표에게 확인 문자 발송</h3>
+              </div>
+              <div class="badges">
+                <span class="badge text">문자</span>
+                <span class="badge hold">보상 금액 언급 보류</span>
+              </div>
+            </div>
+            <div class="step-body">
+              <div class="who">
+                <b>James →</b>
+                <span>울산대표</span>
+              </div>
+              <p>전화 내용을 짧게 남겨, 사과가 순간적인 감정이 아니라 실제 조치로 이어진다는 신호를 줍니다.</p>
+
+              <details open>
+                <summary>발송 문자</summary>
+                <div class="script-wrap">
+                  <div class="script" id="script-2">대표님, 오늘 귀한 분들을 모시고 찾아주셨는데 충분한 설명과 배려 없이 불편한 마음으로 돌아가시게 해드려 다시 한번 죄송합니다.
+
+단순히 오픈 전 대기의 문제가 아니라, 함께 오신 분들 앞에서 대표님의 체면까지 상하게 해드린 일이라고 생각하고 있습니다.
+
+현장 상황을 정확히 확인하고 같은 일이 반복되지 않도록 응대 기준도 바로 정리하겠습니다.
+
+함께 오셨던 분들께 제가 직접 사과드릴 방법도 대표님의 의견에 따르겠습니다. 괜찮으신 날을 주시면 이번에는 제가 직접 정성껏 모시겠습니다.</div>
+                  <button class="copy" data-copy="script-2">문자 복사</button>
+                </div>
+              </details>
+            </div>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="marker">STEP 3</div>
+          <div class="step-card">
+            <div class="step-top">
+              <div>
+                <div class="step-time">울산대표 동의 후 · 오늘 중</div>
+                <h3 class="step-title">동행 고객에게 사과 여부 결정</h3>
+              </div>
+              <div class="badges">
+                <span class="badge call">대표가 원하면 전화</span>
+                <span class="badge hold">대표를 건너뛰지 않기</span>
+              </div>
+            </div>
+            <div class="step-body">
+              <div class="who">
+                <b>James →</b>
+                <span>동행 고객 2~3인 — 울산대표의 동의를 받은 경우만</span>
+              </div>
+              <p>
+                James가 먼저 동행들에게 연락하면 울산대표가 배제된 느낌을 받을 수 있습니다.
+                연락처를 알고 있어도 반드시 울산대표에게 방식을 먼저 묻습니다.
+              </p>
+              <ul>
+                <li>울산대표가 “직접 연락해달라”고 하면 James가 짧게 전화</li>
+                <li>울산대표가 “내가 전달하겠다”고 하면 별도 연락하지 않음</li>
+                <li>동행에게는 직원 징계나 내부 갈등을 설명하지 않음</li>
+              </ul>
+
+              <details>
+                <summary>동행 고객에게 직접 전화할 경우</summary>
+                <div class="script-wrap">
+                  <div class="script" id="script-3">안녕하세요. 설마중의 James입니다.
+
+오늘 귀한 시간 내어 찾아주셨는데, 충분한 설명과 배려 없이 불편한 마음으로 돌아가시게 해드려 죄송합니다.
+
+오픈 시간보다 먼저 도착하셨다는 이유로 다른 대안을 안내드리지 못한 것은 저희 매장의 부족한 대응이었습니다.
+
+울산대표님께서 좋은 마음으로 모시고 오신 자리였는데, 함께 오신 분들까지 불편하게 해드린 점을 무겁게 보고 있습니다.
+
+같은 일이 반복되지 않도록 현장 기준을 바로 정리하겠습니다. 다시 한번 진심으로 죄송합니다.</div>
+                  <button class="copy" data-copy="script-3">통화문 복사</button>
+                </div>
+              </details>
+            </div>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="marker">STEP 4</div>
+          <div class="step-card">
+            <div class="step-top">
+              <div>
+                <div class="step-time">울산대표 사과 완료 후 · 오늘 중</div>
+                <h3 class="step-title">정진철님께 짧은 공유 문자</h3>
+              </div>
+              <div class="badges">
+                <span class="badge text">문자 권장</span>
+                <span class="badge hold">중재 부담 주지 않기</span>
+              </div>
+            </div>
+            <div class="step-body">
+              <div class="who">
+                <b>James →</b>
+                <span>정진철님</span>
+              </div>
+              <p>
+                정진철님은 사건의 직접 당사자가 아닙니다. 장문의 사과나 중재 요청보다,
+                “제가 직접 책임지고 정리하고 있다”는 안심만 드립니다.
+              </p>
+
+              <details open>
+                <summary>권장 문자</summary>
+                <div class="script-wrap">
+                  <div class="script" id="script-4">정진철님, 오늘 소개로 찾아주신 분들께 불편을 드린 일은 제가 울산대표님께 직접 사과드리고 현장 상황도 확인하고 있습니다.
+
+정진철님께서 따로 마음 쓰시거나 중간에서 정리해주실 일은 없도록 제가 책임지고 마무리하겠습니다.
+
+오래 믿고 찾아주신 관계에 누가 되지 않도록 같은 일이 반복되지 않는 기준까지 정리하겠습니다. 염려 끼쳐드려 죄송합니다.</div>
+                  <button class="copy" data-copy="script-4">문자 복사</button>
+                </div>
+              </details>
+            </div>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="marker">STEP 5</div>
+          <div class="step-card">
+            <div class="step-top">
+              <div>
+                <div class="step-time">24시간 이내</div>
+                <h3 class="step-title">내부 기준 정리 및 비공개 피드백</h3>
+              </div>
+              <div class="badges">
+                <span class="badge internal">내부 조치</span>
+                <span class="badge hold">공개 망신 금지</span>
+              </div>
+            </div>
+            <div class="step-body">
+              <div class="who">
+                <b>James →</b>
+                <span>허 지배인 및 현장 책임자</span>
+              </div>
+              <ul>
+                <li>오픈 전 도착 예약 고객의 대기 가능 장소 정의</li>
+                <li>제공 가능한 음료와 결제 처리 방식 정의</li>
+                <li>예외 판단 권한자와 보고 순서 지정</li>
+                <li>거절 대신 제안할 대안 문장 마련</li>
+                <li>사건 보고는 즉시, 인사 피드백은 비공개로 진행</li>
+              </ul>
+              <p style="margin-top:12px"><strong>이 단계의 목표:</strong> “VIP만 예외로 받는다”가 아니라, 누구든 환영받지 못했다는 느낌으로 돌아가지 않게 만드는 기준을 남기는 것입니다.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="step" id="visit">
+          <div class="marker">STEP 6</div>
+          <div class="step-card">
+            <div class="step-top">
+              <div>
+                <div class="step-time">3~7일 이내 · 감정이 가라앉은 뒤</div>
+                <h3 class="step-title">울산대표와 일행 재초대</h3>
+              </div>
+              <div class="badges">
+                <span class="badge call">전화 또는 개인 문자</span>
+                <span class="badge hold">할인권처럼 보이지 않기</span>
+              </div>
+            </div>
+            <div class="step-body">
+              <div class="who">
+                <b>James →</b>
+                <span>울산대표</span>
+              </div>
+              <p>
+                첫 사과 통화에서 바로 날짜를 재촉하지 않습니다. 3~7일 뒤 다시 연락해
+                “무료 식사”가 아니라 “제대로 다시 모시고 싶다”는 장면을 만듭니다.
+              </p>
+
+              <details open>
+                <summary>재초대 문자</summary>
+                <div class="script-wrap">
+                  <div class="script" id="script-5">대표님, 지난 일 이후 현장 상황과 응대 기준을 다시 확인하고 정리했습니다.
+
+말씀드렸던 대로, 그날 함께 오셨던 분들을 제가 다시 한번 정식으로 모시고 싶습니다.
+
+가능하신 날짜를 두세 개만 알려주시면 룸부터 식사 흐름까지 제가 직접 준비하고 맞이하겠습니다.
+
+지난 일을 덮기 위한 자리가 아니라, 설마중을 믿고 사람들을 모시고 오신 대표님의 마음을 이번에는 제대로 모시고 싶습니다.</div>
+                  <button class="copy" data-copy="script-5">문자 복사</button>
+                </div>
+              </details>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <p class="kicker">03 / Contact Rules</p>
+          <h2>연락 방식 결정표</h2>
+          <p class="section-desc">누구에게 전화하고, 누구에게 문자를 보내며, 누구에게는 아직 연락하지 않을지 한눈에 보는 기준입니다.</p>
+        </div>
+      </div>
+
+      <table class="decision">
+        <thead>
+          <tr>
+            <th>대상</th>
+            <th>우선 방식</th>
+            <th>연락 시점</th>
+            <th>핵심 목적</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>허 지배인</strong></td>
+            <td>비공개 대면 면담</td>
+            <td>가장 먼저</td>
+            <td>사실관계와 판단 과정을 복원</td>
+          </tr>
+          <tr>
+            <td><strong>울산대표</strong></td>
+            <td>전화 → 확인 문자</td>
+            <td>사실 확인 직후</td>
+            <td>체면 회복, 동행 연락 방식 확인, 재초대 의사 전달</td>
+          </tr>
+          <tr>
+            <td><strong>동행 고객</strong></td>
+            <td>울산대표 동의 시 전화</td>
+            <td>울산대표와 협의 후</td>
+            <td>개별 불편에 대한 직접 사과</td>
+          </tr>
+          <tr>
+            <td><strong>정진철님</strong></td>
+            <td>짧은 문자</td>
+            <td>울산대표 사과 후</td>
+            <td>중재 부담을 덜고 James가 직접 책임지고 있다는 안심</td>
+          </tr>
+          <tr>
+            <td><strong>설마중 단체방</strong></td>
+            <td>당장은 추가 메시지 없음</td>
+            <td>내부 기준 정리 후</td>
+            <td>사람 비난이 아닌 새 운영 기준만 공유</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <p class="kicker">04 / Tone Guardrail</p>
+          <h2>반드시 살릴 말과 피할 말</h2>
+        </div>
+      </div>
+
+      <div class="matrix">
+        <div class="matrix-card good">
+          <h3>살려야 할 표현</h3>
+          <ul>
+            <li>“대표님의 체면까지 상하게 해드렸습니다.”</li>
+            <li>“오픈 시간은 저희 내부 사정입니다.”</li>
+            <li>“다른 대안을 드리지 못한 것이 부족했습니다.”</li>
+            <li>“어떤 방식으로 동행 분들께 마음을 전할지 대표님의 의견을 따르겠습니다.”</li>
+            <li>“이번에는 제가 직접 준비하고 맞이하겠습니다.”</li>
+          </ul>
+        </div>
+
+        <div class="matrix-card avoid">
+          <h3>피해야 할 표현</h3>
+          <ul>
+            <li>“직원이 원래 융통성이 없습니다.”</li>
+            <li>“크게 혼냈으니 이해해주십시오.”</li>
+            <li>“오픈 전이라 원칙상 어쩔 수 없었습니다.”</li>
+            <li>“다음에 할인해드리겠습니다.”</li>
+            <li>“정진철님께서 잘 말씀해주실 겁니다.”</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="check">
+      <div class="section-head">
+        <div>
+          <p class="kicker">05 / Action Check & Record</p>
+          <h2>James 실행 체크리스트 · 기록란</h2>
+          <p class="section-desc">
+            체크와 입력 내용은 자동으로 저장됩니다.
+            James는 완료한 항목을 체크하고, 확인된 사실과 다음 연락 계획만 남기면 됩니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="sync-card">
+        <div class="sync-head">
+          <h3>진행 상태</h3>
+          <span class="sync-status" id="syncStatus">입력 대기</span>
+        </div>
+        <div class="progress-shell" aria-label="실행 진행률">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">0 / 8 완료 · 0%</div>
+      </div>
+
+      <div class="checklist" style="margin-top:12px">
+        <label class="check"><input type="checkbox" data-key="c1"><span>허 지배인과 비공개 사실 확인을 마쳤다.</span></label>
+        <label class="check"><input type="checkbox" data-key="c2"><span>단체방의 추가 공개 질책을 중단했다.</span></label>
+        <label class="check"><input type="checkbox" data-key="c3"><span>울산대표에게 James가 직접 전화했다.</span></label>
+        <label class="check"><input type="checkbox" data-key="c4"><span>통화 후 확인 문자를 보냈다.</span></label>
+        <label class="check"><input type="checkbox" data-key="c5"><span>동행 고객 연락 방식에 대해 울산대표의 의견을 물었다.</span></label>
+        <label class="check"><input type="checkbox" data-key="c6"><span>정진철님께 중재 부담을 주지 않는 짧은 문자를 보냈다.</span></label>
+        <label class="check"><input type="checkbox" data-key="c7"><span>오픈 전 도착 고객 응대 기준을 정리했다.</span></label>
+        <label class="check"><input type="checkbox" data-key="c8"><span>3~7일 뒤 재초대 연락 일정을 잡았다.</span></label>
+      </div>
+
+      <div class="record-title">
+        <h3>James가 직접 남길 내용</h3>
+        <span>사실 → 고객 반응 → 내부 판단 → 다음 액션 순서</span>
+      </div>
+
+      <div class="record-grid">
+        <div class="field">
+          <label for="incidentId">관리번호</label>
+          <input id="incidentId" data-record="incidentId" value="SMJ-20260620-ULSAN-01" />
+          <small>같은 건을 계속 기록할 때는 관리번호를 변경하지 않습니다.</small>
+        </div>
+
+        <div class="field">
+          <label for="incidentDate">사건일</label>
+          <input id="incidentDate" data-record="incidentDate" type="date" value="2026-06-20" />
+        </div>
+
+        <div class="field">
+          <label for="owner">담당자</label>
+          <input id="owner" data-record="owner" value="James" />
+        </div>
+
+        <div class="field">
+          <label for="currentStage">현재 단계</label>
+          <select id="currentStage" data-record="currentStage">
+            <option value="사실 확인 전">사실 확인 전</option>
+            <option value="내부 사실 확인">내부 사실 확인</option>
+            <option value="울산대표 사과">울산대표 사과</option>
+            <option value="동행 연락 협의">동행 연락 협의</option>
+            <option value="재초대 조율">재초대 조율</option>
+            <option value="재방문 완료">재방문 완료</option>
+            <option value="사건 종료">사건 종료</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="recoveryStatus">고객 마음의 현재 상태</label>
+          <select id="recoveryStatus" data-record="recoveryStatus">
+            <option value="확인 전">확인 전</option>
+            <option value="불쾌감 지속">불쾌감 지속</option>
+            <option value="사과 부분 수용">사과 부분 수용</option>
+            <option value="사과 수용">사과 수용</option>
+            <option value="재방문 검토">재방문 검토</option>
+            <option value="재방문 확정">재방문 확정</option>
+            <option value="관계 회복">관계 회복</option>
+            <option value="재방문 거절">재방문 거절</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="nextFollowUpDate">다음 연락 예정일</label>
+          <input id="nextFollowUpDate" data-record="nextFollowUpDate" type="date" />
+        </div>
+
+        <div class="field full">
+          <label for="factSummary">1. 현장 사실 확인 요약</label>
+          <textarea id="factSummary" data-record="factSummary" placeholder="허 지배인의 설명, 당시 룸 상태, 실제 사용한 표현, 다른 직원의 확인 내용을 시간 순서대로 기록"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="leaderResponse">2. 울산대표 통화 반응</label>
+          <select id="leaderResponse" data-record="leaderResponse">
+            <option value="">선택</option>
+            <option value="미통화">미통화</option>
+            <option value="부재·재연락 필요">부재·재연락 필요</option>
+            <option value="사과 수용">사과 수용</option>
+            <option value="부분 수용·서운함 남음">부분 수용·서운함 남음</option>
+            <option value="불쾌감 지속">불쾌감 지속</option>
+            <option value="재초대 검토">재초대 검토</option>
+            <option value="재초대 수락">재초대 수락</option>
+            <option value="재초대 거절">재초대 거절</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="companionContactMethod">3. 동행 고객 연락 방식</label>
+          <select id="companionContactMethod" data-record="companionContactMethod">
+            <option value="">선택</option>
+            <option value="울산대표 의견 확인 전">울산대표 의견 확인 전</option>
+            <option value="James가 직접 전화">James가 직접 전화</option>
+            <option value="울산대표가 전달">울산대표가 전달</option>
+            <option value="별도 연락 원치 않음">별도 연락 원치 않음</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label for="jungjinchulShareResult">4. 정진철님 공유 결과</label>
+          <input id="jungjinchulShareResult" data-record="jungjinchulShareResult" placeholder="예: James가 직접 수습 중임을 전달 / 별도 중재 요청하지 않음" />
+        </div>
+
+        <div class="field full">
+          <label for="managerStatement">5. 허 지배인 설명과 현재 인식</label>
+          <textarea id="managerStatement" data-record="managerStatement" placeholder="왜 그런 판단을 했는지, 실제 표현은 무엇이었는지, 본인이 어떤 지점을 문제로 인식하는지 기록"></textarea>
+        </div>
+
+        <div class="field full">
+          <label for="reInvitePlan">6. 재초대 계획</label>
+          <textarea id="reInvitePlan" data-record="reInvitePlan" placeholder="연락 예정일, 가능한 일정, 룸, 응대 담당자, 초대 범위, 웰컴 드링크 등"></textarea>
+        </div>
+
+        <div class="field full">
+          <label for="jamesDecision">7. James 최종 판단 및 다음 액션</label>
+          <textarea id="jamesDecision" data-record="jamesDecision" placeholder="직원 피드백, 고객 후속 연락, 운영 기준 수정, 사건 종료 조건까지 기록"></textarea>
+        </div>
+      </div>
+
+      <div class="button-row" style="margin-top:18px">
+        <button class="action-btn primary" type="button" id="syncNow">저장하기</button>
+      </div>
+
+      <div class="integration-note" id="simpleSaveNote">
+        입력 내용은 자동 저장됩니다. 중요한 통화나 판단을 마친 뒤에는 ‘저장하기’를 한 번 눌러주세요.
+      </div>
+    </section>
+
+
+    <footer class="footer">
+      <strong>설마중 고객 회복 원칙</strong><br>
+      이번 사건을 직원 한 사람의 실수로만 끝내지 않고, 고객이 덜 헤매고 더 빨리 안심하는 운영 기준으로 남깁니다.
+    </footer>
+  </main>
+
+
+  
+  <script>
+    const APP = {
+      storagePrefix: "seolmajung_recovery_james_",
+      syncTimer: null,
+      lastSyncReason: "manual",
+      hasServerConnection:
+        typeof google !== "undefined" &&
+        google.script &&
+        google.script.run
+    };
+
+    function setStatus(text, state){
+      const el = document.getElementById("syncStatus");
+      if(!el) return;
+      el.textContent = text;
+      el.className = "sync-status" + (state ? " " + state : "");
+    }
+
+    function getChecks(){
+      const checks = {};
+      document.querySelectorAll('input[type="checkbox"][data-key]').forEach(function(box){
+        checks[box.dataset.key] = box.checked;
+      });
+      return checks;
+    }
+
+    function updateProgress(){
+      const boxes = Array.from(document.querySelectorAll('input[type="checkbox"][data-key]'));
+      const complete = boxes.filter(function(box){ return box.checked; }).length;
+      const percent = Math.round((complete / boxes.length) * 100);
+      document.getElementById("progressBar").style.width = percent + "%";
+      document.getElementById("progressText").textContent =
+        complete + " / " + boxes.length + " 완료 · " + percent + "%";
+    }
+
+    function saveLocal(){
+      document.querySelectorAll("[data-record]").forEach(function(el){
+        localStorage.setItem(APP.storagePrefix + "field_" + el.dataset.record, el.value);
+      });
+
+      document.querySelectorAll('input[type="checkbox"][data-key]').forEach(function(box){
+        localStorage.setItem(
+          APP.storagePrefix + "check_" + box.dataset.key,
+          box.checked ? "1" : "0"
+        );
+      });
+    }
+
+    function restoreLocal(){
+      document.querySelectorAll("[data-record]").forEach(function(el){
+        const saved = localStorage.getItem(APP.storagePrefix + "field_" + el.dataset.record);
+        if(saved !== null) el.value = saved;
+      });
+
+      document.querySelectorAll('input[type="checkbox"][data-key]').forEach(function(box){
+        const saved = localStorage.getItem(APP.storagePrefix + "check_" + box.dataset.key);
+        if(saved !== null) box.checked = saved === "1";
+      });
+    }
+
+    function collectRecord(){
+      const record = {
+        customerAlias: "울산대표",
+        introducedBy: "정진철님",
+        bookingTime: "11:30",
+        arrivalTime: "10:40경",
+        partySize: "3-4인",
+        store: "설마중"
+      };
+
+      document.querySelectorAll("[data-record]").forEach(function(el){
+        record[el.dataset.record] = el.value;
+      });
+
+      record.checks = getChecks();
+      return record;
+    }
+
+    function collectPayload(reason){
+      return {
+        event: reason || "autosave",
+        clientTimestamp: new Date().toISOString(),
+        record: collectRecord()
+      };
+    }
+
+    function scheduleSync(reason){
+      saveLocal();
+      updateProgress();
+      setStatus("입력 내용 저장됨", "saved");
+
+      clearTimeout(APP.syncTimer);
+      APP.lastSyncReason = reason || "autosave";
+      APP.syncTimer = setTimeout(function(){
+        syncRecord(APP.lastSyncReason, false);
+      }, 1200);
+    }
+
+    function syncRecord(reason, manual){
+      const payload = collectPayload(reason);
+
+      if(!APP.hasServerConnection){
+        setStatus("이 기기에 임시 저장됨", "");
+        return;
+      }
+
+      setStatus("저장 중…", "saving");
+
+      google.script.run
+        .withSuccessHandler(function(result){
+          if(result && result.ok){
+            const time = new Date().toLocaleTimeString("ko-KR", {
+              hour: "2-digit",
+              minute: "2-digit"
+            });
+
+            setStatus("저장 완료 · " + time, "saved");
+
+            if(manual){
+              const btn = document.getElementById("syncNow");
+              const old = btn.textContent;
+              btn.textContent = "저장 완료";
+              setTimeout(function(){ btn.textContent = old; }, 1300);
+            }
+          }else{
+            setStatus("저장 확인 필요", "error");
+          }
+        })
+        .withFailureHandler(function(){
+          setStatus("저장 확인 필요", "error");
+        })
+        .saveRecoveryRecord(payload);
+    }
+
+    document.querySelectorAll(".copy").forEach(function(btn){
+      btn.addEventListener("click", async function(){
+        const id = btn.getAttribute("data-copy");
+        const el = document.getElementById(id);
+
+        try{
+          await navigator.clipboard.writeText(el.innerText);
+          const old = btn.textContent;
+          btn.textContent = "복사 완료";
+          setTimeout(function(){ btn.textContent = old; }, 1400);
+        }catch(error){
+          const range = document.createRange();
+          range.selectNodeContents(el);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+      });
+    });
+
+    restoreLocal();
+    updateProgress();
+
+    document.querySelectorAll('input[type="checkbox"][data-key]').forEach(function(box){
+      box.addEventListener("change", function(){
+        scheduleSync(
+          "check_" + box.dataset.key + "_" + (box.checked ? "complete" : "undo")
+        );
+      });
+    });
+
+    document.querySelectorAll("[data-record]").forEach(function(el){
+      const eventName =
+        el.tagName === "SELECT" || el.type === "date" ? "change" : "input";
+
+      el.addEventListener(eventName, function(){
+        scheduleSync("field_" + el.dataset.record);
+      });
+    });
+
+    document.getElementById("syncNow").addEventListener("click", function(){
+      saveLocal();
+      updateProgress();
+      syncRecord("manual_save", true);
+    });
+
+    if(APP.hasServerConnection){
+      setStatus("입력 대기", "");
+    }else{
+      setStatus("이 기기에 임시 저장", "");
+      const note = document.getElementById("simpleSaveNote");
+      if(note){
+        note.textContent =
+          "현재 입력 내용은 이 기기에 임시 저장됩니다. 정식 링크에서 열면 운영 기록에도 함께 저장됩니다.";
+      }
+    }
+  </script>
+
+
+</body>
+</html>
